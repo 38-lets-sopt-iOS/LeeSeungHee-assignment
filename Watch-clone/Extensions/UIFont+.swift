@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIFont {
+    
     static func pretendard(size fontSize: CGFloat, weight: UIFont.Weight) -> UIFont {
         let familyName = "Pretendard"
 
@@ -37,20 +38,38 @@ extension UIFont {
 
         return UIFont(name: "\(familyName)-\(weightString)", size: fontSize) ?? .systemFont(ofSize: fontSize, weight: weight)
     }
+    
+// FontSystem
+    static var head1: UIFont {
+        return UIFont.pretendard(size: 30, weight: .semibold)
+    }
+    static var head2: UIFont {
+        return UIFont.pretendard(size: 23, weight: .semibold)
+    }
+    static var head3: UIFont {
+        return UIFont.pretendard(size: 20, weight: .semibold)
+    }
+    static var subhead1: UIFont {
+        return UIFont.pretendard(size: 18, weight: .semibold)
+    }
+    static var subhead2: UIFont {
+        return UIFont.pretendard(size: 15, weight: .semibold)
+    }
+    static var subhead3: UIFont {
+        return UIFont.pretendard(size: 12, weight: .semibold)
+    }
+    static var medium: UIFont {
+        return UIFont.pretendard(size: 18, weight: .medium)
+    }
+    static var body1: UIFont {
+        return UIFont.pretendard(size: 12, weight: .medium)
+    }
+    static var body2: UIFont {
+        return UIFont.pretendard(size: 12, weight: .regular)
+    }
+    static var cap1: UIFont {
+        return UIFont.pretendard(size: 12, weight: .light)
+    }
+    
+    
 }
-
-/*
- static var head1: UIFont {
- return pretendard(size: 24, weight: .bold)
- }
- 
- static var body1: UIFont {
- return pretendard(size: 16, weight: .regular)
- }
- 
- static var caption: UIFont {
- return pretendard(size: 12, weight: .light)
- }
- }
- label.font = .pretendard(size: 18, weight: .bold)
- */
