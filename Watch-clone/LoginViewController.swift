@@ -33,7 +33,7 @@ class LoginViewController: UIViewController {
     private let emailTextField: UITextField = {
            let textField = UITextField()
            textField.placeholder = "email@address.com"
-           textField.backgroundColor = .gray
+        textField.backgroundColor = .gray
            textField.font = .pretendard(size: 12, weight: .regular)
            textField.leftViewMode = .always
            return textField
@@ -73,31 +73,30 @@ class LoginViewController: UIViewController {
         view.addSubviews(titleLabel,subLabel,nextButton,emailTextField)
     }
     
-    func setLayout(){
-        
-        
-        titleLabel.snp.makeConstraints{
-            $0.centerX.equalToSuperview()
-            $0.leading.equalToSuperview().offset(30)
-            
+    func setLayout() {
+
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
+            $0.leading.equalToSuperview().offset(24)
+            $0.trailing.equalToSuperview().inset(24)
         }
-        
-        subLabel.snp.makeConstraints{
-            $0.top.equalTo(titleLabel.snp.bottom).offset(13)
-            $0.leading.trailing.equalToSuperview().inset(20)
+
+        subLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+            $0.leading.trailing.equalTo(titleLabel)
+        }
+
+        emailTextField.snp.makeConstraints {
+            $0.top.equalTo(subLabel.snp.bottom).offset(30)
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.height.equalTo(48)
+        }
+
+        nextButton.snp.makeConstraints {
+            $0.top.equalTo(emailTextField.snp.bottom).offset(20)
+            $0.leading.trailing.equalTo(emailTextField)
             $0.height.equalTo(52)
         }
-        
-        nextButton.snp.makeConstraints{
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(169)
-        }
-        
-        emailTextField.snp.makeConstraints{
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(169)
-        }
-        
     }
     
     
