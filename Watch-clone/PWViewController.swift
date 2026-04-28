@@ -4,64 +4,102 @@
 //
 //  Created by 초긍정행운의포춘쿠키 on 4/24/26.
 //
-
+import Then
 import UIKit
 import SnapKit
 
+
 class PWViewController: UIViewController {
     
+    var email: String?
     
-    private let titleLabel: UILabel={
-            let label = UILabel()
-            label.text = "사용할 비밀번호를\n 입력해주세요"
-            label.numberOfLines = 2
-            label.textColor = .white
-            label.font = .pretendard(size: 23, weight: .semibold)
-            label.textAlignment = .left
-            return label
-        }()
-
-    private let pwTextField: UITextField = {
-           let textField = UITextField()
-           textField.placeholder = "비밀번호를 입력해주세요"
-           textField.backgroundColor = .gray
-           textField.font = .pretendard(size: 12, weight: .regular)
-           textField.leftViewMode = .always
-           return textField
-       }()
-
+    private let titleLabel = UILabel().then{
+        $0.text = "사용할 비밀번호를\n입력해주세요"
+        $0.numberOfLines = 2
+        $0.textColor = .WATCHA_WHITE
+        $0.font = .head2
+    }
+    
+    private let emailLabel = UILabel().then{
+        $0.textColor = .GRAY_100
+        $0.font = .body1
+    }
+    
+    private let pwTextField = UITextField().then {
+        $0.addLeftPadding()
+        $0.placeholder = "비밀번호를 입력해주세요"
+        $0.leftViewMode = .always
+        $0.font = .body2
+        $0.backgroundColor = .GRAY_600
+        $0.layer.cornerRadius = 10
+        $0.clipsToBounds = true
+        $0.textColor = .WATCHA_WHITE
+        $0.placeholderColor(.GRAY_300)
+    }
+    
+    private let subLabel = UILabel().then {
+        $0.text = "영문, 숫자, 특수문자 포함 10글자 이상"
+        $0.font = .body2
+        $0.textColor = .GRAY_600
+    }
+    
+    lazy var joinButton = UIButton().then {
+        
+        let Button = UIButton()
+        $0.backgroundColor = .GRAY_400
+        $0.setTitle("가입하기", for: .normal)
+        $0.titleLabel?.font = .medium
+        $0.setTitleColor(.white,for: .normal)
+        $0.layer.cornerRadius = 10
+        $0.clipsToBounds = true
+        $0.isEnabled = false
+    }
+    
     override func viewDidLoad() {
-            super.viewDidLoad()
-            view.backgroundColor = .black
-            setUI()
-            setLayout()
-        }
+        super.viewDidLoad()
+        view.backgroundColor = .black
+        
+        emailLabel.text = "\(email ?? "")로 가입중"
+        setUI()
+        setLayout()
+    }
     
     
     func setUI() {
         
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        pwTextField.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubviews(titleLabel,pwTextField)
+        view.addSubviews(titleLabel,emailLabel,subLabel,pwTextField,joinButton)
     }
     
     func setLayout() {
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(40)
-            $0.leading.equalToSuperview().offset(24)
-            $0.trailing.equalToSuperview().inset(24)
-        }
-        pwTextField.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(30)
-            $0.leading.trailing.equalToSuperview().inset(24)
-            $0.height.equalTo(48)
+            $0.top.equalToSuperview().inset(152)
+            $0.leading.equalToSuperview().offset(31)
         }
         
+        emailLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(13)
+            $0.leading.trailing.equalToSuperview().inset(30)
+        }
+        
+        pwTextField.snp.makeConstraints {
+            $0.top.equalTo(emailLabel.snp.bottom).offset(13)
+            $0.leading.trailing.equalToSuperview().inset(31)
+            $0.height.equalTo(47)
+        }
+        
+        subLabel.snp.makeConstraints {
+            $0.top.equalTo(pwTextField.snp.bottom).offset(13)
+            $0.leading.trailing.equalToSuperview().inset(31)
+        }
+        joinButton.snp.makeConstraints {
+            $0.top.equalTo(pwTextField.snp.bottom).offset(384)
+            $0.leading.trailing.equalToSuperview().inset(22)
+            $0.height.equalTo(56)
+        }
     }
     
     
 }
-    
-    
+
+

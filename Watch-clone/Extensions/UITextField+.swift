@@ -22,13 +22,9 @@ extension UITextField {
         self.rightViewMode = ViewMode.always
     }
     
-
-    func placeholderColor(_ phcolor: UIColor) {
-        attributedPlaceholder = NSAttributedString(
-            string: placeholder ?? "",
-            attributes: [
-                .foregroundColor: phcolor
-            ]
-        )
+//MARK: - PlaceholderColor
+    func placeholderColor(_ color: UIColor) {
+        attributedPlaceholder = NSAttributedString(string: placeholder ?? "", attributes: [.foregroundColor: color])
     }
-}
+    
+} //end

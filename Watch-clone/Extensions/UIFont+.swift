@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIFont {
-    
+//MARK: - Pretendard Font
     static func pretendard(size fontSize: CGFloat, weight: UIFont.Weight) -> UIFont {
         let familyName = "Pretendard"
 
@@ -39,7 +39,7 @@ extension UIFont {
         return UIFont(name: "\(familyName)-\(weightString)", size: fontSize) ?? .systemFont(ofSize: fontSize, weight: weight)
     }
     
-// FontSystem
+//MARK: - Font System
     static var head1: UIFont {
         return UIFont.pretendard(size: 30, weight: .semibold)
     }
