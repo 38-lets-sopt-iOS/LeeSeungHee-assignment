@@ -62,7 +62,7 @@ class NameViewController: UIViewController {
             $0.height.equalTo(56)
         }
     }
-    
+//MARK: - @objc
     @objc
     func doneButtonDidTap(){
         self.dismiss(animated: true)
@@ -72,4 +72,5 @@ class NameViewController: UIViewController {
         }
     }
     
-} //end
+//MARK: -endOfClass
+}
