@@ -90,6 +90,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let xIcon = UIButton().then{
             $0.setImage(.x, for: .normal)
             $0.addTarget(self, action: #selector(clearText), for: .touchUpInside)
+            $0.snp.makeConstraints {$0.width.height.equalTo(24)}
         }
         let isValid = (textField.text ?? "").isValidEmail()
         

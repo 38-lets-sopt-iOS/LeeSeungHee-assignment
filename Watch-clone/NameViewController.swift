@@ -9,16 +9,15 @@ import Then
 import UIKit
 import SnapKit
 
-protocol setLabelDelegateProtocol : AnyObject {
-    func setLabel(_ nickname: String)
-}
+// d protocol setLabelDelegateProtocol : AnyObject {
+ //d    func setLabel(_ nickname: String)
+//d }
 
 class NameViewController: UIViewController {
     
-    weak var delegate : setLabelDelegateProtocol?
+ //d   weak var delegate : setLabelDelegateProtocol?
     
-    var nickname: String? = nil
-    var resetLabel: ((String)->Void)?
+    var closerTypeProperty: ((String)->Void)?
     
     private let titleLabel = UILabel().then {
         $0.text = "닉네임을 입력해주세요"
@@ -71,10 +70,14 @@ class NameViewController: UIViewController {
     
     @objc
     func doneButtonDidTap(){
-        self.dismiss(animated: true)
-        if let nickname = nicknameTextField.text {
-            delegate?.setLabel(nickname)
+      self.dismiss(animated: true)
+        guard let ctp = closerTypeProperty else {return}
+        if let x = nicknameTextField.text {
+            ctp(x)     
         }
+   // d    if let nickname = nicknameTextField.text {
+    //d        delegate?.setLabel(nickname)
+      //d  }
     }
     
-}
+} //end

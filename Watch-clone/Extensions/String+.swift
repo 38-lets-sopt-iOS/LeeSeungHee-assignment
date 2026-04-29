@@ -14,4 +14,9 @@ extension String {
         return predicate.evaluate(with: self)
     }
     // String.isValidEmail() -> T/F
+    func isValidPassword() -> Bool {
+        let regularExpression = "^[A-Q0-9a-z._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regularExpression)
+        return predicate.evaluate(with: self)
+    }
 }

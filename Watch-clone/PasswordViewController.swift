@@ -27,9 +27,19 @@ class PasswordViewController: UIViewController {
         $0.font = .body1
     }
     
-    private let pwTextField = BaseTextField("비밀번호를 입력해주세요")
+    private lazy var pwTextField = BaseTextField("비밀번호 입력").then {
+        $0.rightView = containerView
+        $0.rightViewMode = .always
+    }
     
     private let enableImage = UIImageView(image: .enableOff)
+    
+//let isValid = (pwTextField.text ?? "").isValidPassword()
+    
+    //let enableImage = UIImageView().then{
+    //    $0.image = isValid ? .enableOn : .enableOff
+  //      $0.contentMode = .scaleAspectFit
+ //   }
     
     private let subLabel = UILabel().then {
         $0.text = "영문, 숫자, 특수문자 포함 10글자 이상"
@@ -46,6 +56,25 @@ class PasswordViewController: UIViewController {
         $0.isUserInteractionEnabled = true
         $0.addGestureRecognizer(labelTouch)
     }
+    
+    lazy var containerView = UIStackView().then{
+        $0.axis = .horizontal
+        $0.spacing = 4
+        $0.addArrangedSubviews(xIcon,eyeIcon,spacer)
+    }
+    lazy var xIcon = UIButton().then{
+        $0.setImage(.x, for: .normal)
+        $0.addTarget(self, action: #selector(clearText), for: .touchUpInside)
+    }
+    
+    var eyeIcon = UIImageView().then{
+        $0.image = .eyeOn
+    }
+    let spacer = UIView()
+    
+    
+    
+    
     //MARK: - viewDidLoad()
     
     override func viewDidLoad() {
@@ -102,6 +131,16 @@ class PasswordViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(22)
             $0.height.equalTo(56)
         }
+        
+        xIcon.snp.makeConstraints {
+            $0.width.height.equalTo(24)
+        }
+        eyeIcon.snp.makeConstraints {
+            $0.width.height.equalTo(24)
+        }
+        spacer.snp.makeConstraints {
+            $0.width.equalTo(12)
+        }
     }
     
     
@@ -111,7 +150,11 @@ class PasswordViewController: UIViewController {
     
     private func presentToNameViewController() {
         let nameViewController = NameViewController()
-        nameViewController.delegate = self
+      //d  nameViewController.delegate = self
+        nameViewController.closerTypeProperty = { [weak self] data in
+            guard let self else {return}
+            setNickNameLabel.attributedText = NSAttributedString(string: "닉네임 : \(data) ")
+        }
         
         if let sheet = nameViewController.sheetPresentationController {
             sheet.detents = [.medium()]
@@ -129,6 +172,12 @@ class PasswordViewController: UIViewController {
     
     lazy var labelTouch = UITapGestureRecognizer(target: self, action: #selector(labelDidTouch))
     
+    @objc
+    private func clearText() {
+        pwTextField.text = ""
+    }
+    
+    
     /*
      
      private func pushToPasswordViewController(){
@@ -142,8 +191,9 @@ class PasswordViewController: UIViewController {
 }//end
 
 //MARK: - protocol
-extension PasswordViewController: setLabelDelegateProtocol{
-    func setLabel(_ nickname: String) {
-        setNickNameLabel.attributedText = NSAttributedString(string: "닉네임 : \(nickname) ")
-    }
-}
+/* extension PasswordViewController: setLabelDelegateProtocol{
+ func setLabel(_ nickname: String) {
+ setNickNameLabel.attributedText = NSAttributedString(string: "닉네임 : \(nickname) ")
+ }
+ }
+ */
