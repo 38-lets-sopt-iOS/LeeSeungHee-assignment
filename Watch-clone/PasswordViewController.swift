@@ -11,7 +11,7 @@ import SnapKit
 
 class PasswordViewController: UIViewController {
     
-    //MARK: - Properties
+//MARK: - Properties
     
     var email: String?
     
@@ -27,19 +27,9 @@ class PasswordViewController: UIViewController {
         $0.font = .body1
     }
     
-    private lazy var pwTextField = BaseTextField("비밀번호 입력").then {
-        $0.rightView = containerView
-        $0.rightViewMode = .always
-    }
+    lazy var pwTextField = BaseTextField("비밀번호 입력")
     
     private let enableImage = UIImageView(image: .enableOff)
-    
-    //let isValid = (pwTextField.text ?? "").isValidPassword()
-    
-    //let enableImage = UIImageView().then{
-    //    $0.image = isValid ? .enableOn : .enableOff
-    //      $0.contentMode = .scaleAspectFit
-    //   }
     
     private let subLabel = UILabel().then {
         $0.text = "영문, 숫자, 특수문자 포함 10글자 이상"
@@ -47,7 +37,9 @@ class PasswordViewController: UIViewController {
         $0.textColor = .GRAY_100
     }
     
-    lazy var joinButton = BaseButton("가입하기")
+    lazy var joinButton = BaseButton("가입하기").then{
+        $0.backgroundColor = .GRAY_300
+    }
     
     lazy var setNickNameLabel = UILabel().then {
         $0.font = .body2
@@ -57,40 +49,25 @@ class PasswordViewController: UIViewController {
         $0.addGestureRecognizer(labelTouch)
     }
     
-    lazy var containerView = UIStackView().then{
-        $0.axis = .horizontal
-        $0.spacing = 4
-        $0.addArrangedSubviews(xIcon,eyeIcon,spacer)
-    }
-    lazy var xIcon = UIButton().then{
-        $0.setImage(.x, for: .normal)
-        $0.addTarget(self, action: #selector(clearText), for: .touchUpInside)
-    }
+    lazy var labelTouch = UITapGestureRecognizer(target: self, action: #selector(labelDidTouch))
     
-    var eyeIcon = UIImageView().then{
-        $0.image = .eyeOn
-    }
-    let spacer = UIView()
-    
-    
-    
-    
-    //MARK: - viewDidLoad()
+//MARK: - viewDidLoad()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         
         emailLabel.text = "\(email ?? "")로 가입중"
+        // 이런건 옵셔널바인딩아님 걘값잇을때만쓸거야 이거고 이 nil-coalescing (??) 은 nil이면 대체값넣어서 응무조건쓸거야이러시는
         
         setUI()
         setLayout()
+        pwTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         
     }
     
     
     func setUI() {
-        
         view.addSubviews(titleLabel,emailLabel,enableImage,subLabel,pwTextField,joinButton,setNickNameLabel)
     }
     
@@ -131,22 +108,12 @@ class PasswordViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(22)
             $0.height.equalTo(56)
         }
-        
-        xIcon.snp.makeConstraints {
-            $0.width.height.equalTo(24)
-        }
-        eyeIcon.snp.makeConstraints {
-            $0.width.height.equalTo(24)
-        }
-        spacer.snp.makeConstraints {
-            $0.width.equalTo(12)
-        }
     }
     
     
     
     
-    //MARK: - func
+//MARK: - func
     
     private func presentToNameViewController() {
         let nameViewController = NameViewController()
@@ -163,19 +130,86 @@ class PasswordViewController: UIViewController {
         present(nameViewController, animated: true)
     }
     
+    private func updateRightView(_ textField: UITextField) {
+        
+        let xIcon = ClearTextButton(pwTextField)
+        
+       let eyeIcon = UIButton().then {
+            $0.setImage(.eyeOff, for: .normal)
+            $0.setImage(.eyeOn, for: .selected)
+            $0.contentMode = .scaleAspectFit
+            $0.addTarget(self, action: #selector(eyeDidTap), for: .touchUpInside)
+        }
+        let spacer = UIView()
+        
+        let containerView = UIStackView().then{
+            $0.axis = .horizontal
+            $0.spacing = 4
+            $0.addArrangedSubviews(xIcon,eyeIcon,spacer)
+        }
+        
+        xIcon.snp.makeConstraints {
+            $0.width.height.equalTo(24)
+        }
+        eyeIcon.snp.makeConstraints {
+            $0.width.height.equalTo(24)
+        }
+        spacer.snp.makeConstraints {
+            $0.width.equalTo(12)
+        }
+        textField.rightView = containerView
+        textField.rightViewMode = .always
+        
+    }
+    
+    
+    private func updateStates(_ isValid: Bool) {
+        joinButton.isEnabled = isValid
+        
+        if isValid {
+            joinButton.backgroundColor = .WATCHA_PINK
+            joinButton.setTitleColor(.WATCHA_WHITE, for: .normal)
+            enableImage.image = .enableOn
+            subLabel.textColor = .WATCHA_GREEN
+            
+        } else {
+            joinButton.backgroundColor = .GRAY_300
+            joinButton.setTitleColor(.GRAY_200, for: .normal)
+            enableImage.image = .enableOff
+            subLabel.textColor = .GRAY_100
+            
+        }
+    }
+    
+//MARK: - @objc
+    
     @objc
     func labelDidTouch() {
         presentToNameViewController()
     }
     
-    
-    lazy var labelTouch = UITapGestureRecognizer(target: self, action: #selector(labelDidTouch))
-    
+  /*
     @objc
     private func clearText() {
         pwTextField.text = ""
+        updateRightView(pwTextField)
+    }
+   */
+    
+    @objc
+    private func textDidChange(_ textField: UITextField) {
+        updateRightView(textField)
+        let isValid = (textField.text ?? "").isValidPassword()
+        updateStates(isValid)
     }
     
     
-}//end
+    @objc
+    private func eyeDidTap(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        pwTextField.isSecureTextEntry.toggle()
+    }
+    
+//MARK: -endOfClass
+}
 
