@@ -1,5 +1,5 @@
 //
-//  sheetPresentationController.swift
+//  NameController.swift
 //  Watch-clone
 //
 //  Created by 초긍정행운의포춘쿠키 on 4/28/26.
@@ -57,8 +57,8 @@ class NameViewController: UIViewController {
             $0.height.equalTo(47)
         }
         doneButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(22)
             $0.bottom.equalToSuperview().inset(47)
+            $0.leading.trailing.equalToSuperview().inset(22)
             $0.height.equalTo(56)
         }
     }

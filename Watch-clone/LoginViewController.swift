@@ -48,6 +48,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     
     func setUI() {
+            view.backgroundColor = .WATCHA_BLACK
         view.addSubviews(titleLabel,subLabel,nextButton,emailTextField)
     }
     
@@ -70,7 +71,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
         nextButton.snp.makeConstraints {
-            $0.top.equalTo(emailTextField.snp.bottom).offset(384)
+            $0.bottom.equalToSuperview().inset(47)
             $0.leading.trailing.equalToSuperview().inset(22)
             $0.height.equalTo(56)
         }

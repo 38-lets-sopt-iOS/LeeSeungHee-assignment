@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PasswordViewController.swift
 //  Watch-clone
 //
 //  Created by 초긍정행운의포춘쿠키 on 4/24/26.
@@ -14,7 +14,7 @@ class PasswordViewController: UIViewController {
 //MARK: - Properties
     
     var email: String?
-    
+    var tossNickname: String?
     private let titleLabel = UILabel().then{
         $0.text = "사용할 비밀번호를\n입력해주세요"
         $0.numberOfLines = 2
@@ -55,7 +55,7 @@ class PasswordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = .WATCHA_BLACK
         
         emailLabel.text = "\(email ?? "")로 가입중"
         // 이런건 옵셔널바인딩아님 걘값잇을때만쓸거야 이거고 이 nil-coalescing (??) 은 nil이면 대체값넣어서 응무조건쓸거야이러시는
@@ -63,11 +63,13 @@ class PasswordViewController: UIViewController {
         setUI()
         setLayout()
         pwTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        joinButton.addTarget(self, action: #selector(joinDidTap), for: .touchUpInside)
         
     }
     
     
     func setUI() {
+        view.backgroundColor = .WATCHA_BLACK
         view.addSubviews(titleLabel,emailLabel,enableImage,subLabel,pwTextField,joinButton,setNickNameLabel)
     }
     
@@ -104,13 +106,13 @@ class PasswordViewController: UIViewController {
             $0.top.equalTo(subLabel.snp.bottom).offset(40)
         }
         joinButton.snp.makeConstraints {
-            $0.top.equalTo(pwTextField.snp.bottom).offset(384)
+            $0.bottom.equalToSuperview().inset(47)
             $0.leading.trailing.equalToSuperview().inset(22)
             $0.height.equalTo(56)
         }
     }
     
-    
+
     
     
 //MARK: - func
@@ -119,9 +121,9 @@ class PasswordViewController: UIViewController {
         let nameViewController = NameViewController()
         nameViewController.closerTypeProperty = { [weak self] data in
             guard let self else {return}
-            setNickNameLabel.attributedText = NSAttributedString(string: "닉네임 : \(data) ")
+            setNickNameLabel.attributedText = NSAttributedString(string: "Nickname : \(data) ")
+            self.tossNickname = data
         }
-        
         if let sheet = nameViewController.sheetPresentationController {
             sheet.detents = [.medium()]
             sheet.prefersGrabberVisible = true
@@ -181,6 +183,12 @@ class PasswordViewController: UIViewController {
         }
     }
     
+    func pushToWelcomeViewController() {
+        let welcomeViewController = WelcomeViewController()
+        welcomeViewController.nickname = tossNickname
+        navigationController?.pushViewController(welcomeViewController, animated: true)
+    }
+    
 //MARK: - @objc
     
     @objc
@@ -208,6 +216,11 @@ class PasswordViewController: UIViewController {
     private func eyeDidTap(_ sender: UIButton) {
         sender.isSelected.toggle()
         pwTextField.isSecureTextEntry.toggle()
+    }
+    
+    @objc
+    private func joinDidTap() {
+        pushToWelcomeViewController()
     }
     
 //MARK: -endOfClass
