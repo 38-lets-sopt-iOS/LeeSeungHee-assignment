@@ -13,4 +13,5 @@ extension String {
         let predicate = NSPredicate(format: "SELF MATCHES %@", regularExpression)
         return predicate.evaluate(with: self)
     }
+    // String.isValidEmail() -> T/F
 }

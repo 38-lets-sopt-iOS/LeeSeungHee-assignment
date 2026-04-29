@@ -12,6 +12,7 @@ import SnapKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
+    //MARK: - Properties
     
     private let titleLabel = UILabel().then{
         $0.text = "로그인/가입하려는\n이메일을 입력해주세요"
@@ -27,53 +28,27 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         $0.font = .body1
     }
     
-   let emailTextField = BaseTextField(placeholder: "email@address.com")
+    let emailTextField = BaseTextField("email@address.com")
     
     
-    lazy var nextButton = BaseButton(inputLabel: "다음").then{
+    lazy var nextButton = BaseButton("다음").then{
         $0.addTarget(self,action: #selector(loginButtonDidTap), for: .touchUpInside)
     }
-  /*  lazy var nextButton = UIButton().then{
-        
-        $0.backgroundColor = .GRAY_400
-        $0.setTitle("다음", for: .normal)
-        $0.titleLabel?.font = .medium
-        $0.setTitleColor(.white,for: .normal)
-        $0.layer.cornerRadius = 10
-        $0.clipsToBounds = true
-        $0.isEnabled = false
-        $0.addTarget(self,action: #selector(loginButtonDidTap), for: .touchUpInside)
-    }*/
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderColor = UIColor.WATCHA_PINK.cgColor
-        textField.layer.borderWidth = 1
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.layer.borderWidth = 0
-    }
     
-
+    //MARK: - viewDidLoad()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = .WATCHA_BLACK
         
         setUI()
         setLayout()
-        
-      //  emailTextField.placeholderColor(.GRAY_300)
-        
-        emailTextField.delegate = self
-        
         emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-
+        
     }
     
     
     func setUI() {
-        
         view.addSubviews(titleLabel,subLabel,nextButton,emailTextField)
     }
     
@@ -102,54 +77,47 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    
-    private func pushToPWVC(){
-        let PWViewController = PWViewController()
-        PWViewController.email = emailTextField.text
-        navigationController?.pushViewController(PWViewController, animated: true)
-   
+    //MARK: - func
+    private func pushToPasswordViewController(){
+        let passwordViewController = PasswordViewController()
+        passwordViewController.email = emailTextField.text
+        navigationController?.pushViewController(passwordViewController, animated: true)
     }
-   
     
-    private func updateRightView(for textField: UITextField) {
-
-        let container = UIStackView()
-        container.axis = .horizontal
-        container.spacing = 6
+    
+    private func updateRightView(_ textField: UITextField) {
         
+        let xIcon = UIButton().then{
+            $0.setImage(.x, for: .normal)
+            $0.addTarget(self, action: #selector(clearText), for: .touchUpInside)
+        }
         let isValid = (textField.text ?? "").isValidEmail()
-
-        let xIcon = UIButton()
-        xIcon.setImage(UIImage(named: "x"), for: .normal)
-        xIcon.addTarget(self, action: #selector(clearText), for: .touchUpInside)
         
-        let checkIcon = UIImageView()
-        checkIcon.image = isValid
-        ? UIImage(named: "check-on") //조건 만족
-        : UIImage(named: "check-off")
-        checkIcon.contentMode = .scaleAspectFit
-        
+        let checkIcon = UIImageView().then{
+            $0.image = isValid ? .checkOn : .checkOff
+            $0.contentMode = .scaleAspectFit
+        }
         let spacer = UIView()
         
-        container.addArrangedSubview(xIcon)
-        container.addArrangedSubview(checkIcon)
-        container.addArrangedSubview(spacer)
-
+        let containerView = UIStackView().then{
+            $0.axis = .horizontal
+            $0.spacing = 4
+            $0.addArrangedSubviews(xIcon,checkIcon,spacer)
+        }
+        
         xIcon.snp.makeConstraints {
             $0.width.height.equalTo(24)
         }
-
         checkIcon.snp.makeConstraints {
             $0.width.height.equalTo(24)
         }
-
         spacer.snp.makeConstraints {
-            $0.width.equalTo(10)
+            $0.width.equalTo(12)
         }
-
-           textField.rightView = container
-           textField.rightViewMode = .always
+        textField.rightView = containerView
+        textField.rightViewMode = .always
     }
+    
     
     private func updateNextButtonState(isValid: Bool) {
         nextButton.isEnabled = isValid
@@ -165,22 +133,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @objc
     private func loginButtonDidTap() {
-        pushToPWVC()
+        pushToPasswordViewController()
     }
     
     @objc
     private func textDidChange(_ textField: UITextField) {
-        updateRightView(for: textField)
+        updateRightView(textField)
         let isValid = (textField.text ?? "").isValidEmail()
         updateNextButtonState(isValid: isValid)
-
-        
     }
     
     @objc
     private func clearText() {
         emailTextField.text = ""
-        updateRightView(for: emailTextField)
+        updateRightView(emailTextField)
     }
 }
 
