@@ -34,12 +34,12 @@ class PasswordViewController: UIViewController {
     
     private let enableImage = UIImageView(image: .enableOff)
     
-//let isValid = (pwTextField.text ?? "").isValidPassword()
+    //let isValid = (pwTextField.text ?? "").isValidPassword()
     
     //let enableImage = UIImageView().then{
     //    $0.image = isValid ? .enableOn : .enableOff
-  //      $0.contentMode = .scaleAspectFit
- //   }
+    //      $0.contentMode = .scaleAspectFit
+    //   }
     
     private let subLabel = UILabel().then {
         $0.text = "영문, 숫자, 특수문자 포함 10글자 이상"
@@ -150,7 +150,6 @@ class PasswordViewController: UIViewController {
     
     private func presentToNameViewController() {
         let nameViewController = NameViewController()
-      //d  nameViewController.delegate = self
         nameViewController.closerTypeProperty = { [weak self] data in
             guard let self else {return}
             setNickNameLabel.attributedText = NSAttributedString(string: "닉네임 : \(data) ")
@@ -178,22 +177,5 @@ class PasswordViewController: UIViewController {
     }
     
     
-    /*
-     
-     private func pushToPasswordViewController(){
-     let passwordViewController = PasswordViewController()
-     passwordViewController.email = emailTextField.text
-     navigationController?.pushViewController(passwordViewController, animated: true)
-     }
-     
-     */
-    
 }//end
 
-//MARK: - protocol
-/* extension PasswordViewController: setLabelDelegateProtocol{
- func setLabel(_ nickname: String) {
- setNickNameLabel.attributedText = NSAttributedString(string: "닉네임 : \(nickname) ")
- }
- }
- */

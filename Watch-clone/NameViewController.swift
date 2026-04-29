@@ -9,13 +9,8 @@ import Then
 import UIKit
 import SnapKit
 
-// d protocol setLabelDelegateProtocol : AnyObject {
- //d    func setLabel(_ nickname: String)
-//d }
-
 class NameViewController: UIViewController {
     
- //d   weak var delegate : setLabelDelegateProtocol?
     
     var closerTypeProperty: ((String)->Void)?
     
@@ -70,14 +65,11 @@ class NameViewController: UIViewController {
     
     @objc
     func doneButtonDidTap(){
-      self.dismiss(animated: true)
+        self.dismiss(animated: true)
         guard let ctp = closerTypeProperty else {return}
         if let x = nicknameTextField.text {
             ctp(x)     
         }
-   // d    if let nickname = nicknameTextField.text {
-    //d        delegate?.setLabel(nickname)
-      //d  }
     }
     
 } //end
