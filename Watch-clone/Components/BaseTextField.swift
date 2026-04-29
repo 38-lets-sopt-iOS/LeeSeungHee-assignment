@@ -10,10 +10,11 @@ import UIKit
 import Then
 import SnapKit
 
-final class BaseTextField: UITextField {
+final class BaseTextField: UITextField, UITextFieldDelegate {
 
-    init(placeholder: String) {
+    init(_ placeholder: String) {
         super.init(frame: .zero)
+        self.delegate = self
         setStyle(placeholder: placeholder)
     }
 
@@ -31,4 +32,14 @@ final class BaseTextField: UITextField {
         self.placeholder = placeholder
         self.placeholderColor(.GRAY_300)
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = UIColor.WATCHA_PINK.cgColor
+        textField.layer.borderWidth = 1
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderWidth = 0
+    }
+
 }

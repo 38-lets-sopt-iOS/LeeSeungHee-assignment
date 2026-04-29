@@ -12,7 +12,7 @@ import SnapKit
 
 final class BaseButton: UIButton {
     
-    init(inputLabel: String) {
+    init(_ inputLabel: String) {
         super.init(frame: .zero)
         setStyle(buttonLabel: inputLabel)
     }
@@ -25,7 +25,7 @@ final class BaseButton: UIButton {
         self.backgroundColor = .GRAY_400
         self.setTitle(buttonLabel, for: .normal)
         self.titleLabel?.font = .medium
-        self.setTitleColor(.white, for: .normal)
+        self.setTitleColor(.GRAY_200, for: .normal)
         self.layer.cornerRadius = 10
         self.clipsToBounds = true
         self.isEnabled = false
