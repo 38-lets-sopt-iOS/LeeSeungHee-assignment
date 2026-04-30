@@ -24,7 +24,7 @@ class WelcomeViewController: UIViewController {
         $0.textAlignment = .center
     }
     
-    private let toMainButton = BaseButton("메인으로").then{
+    private lazy var toMainButton = BaseButton("메인으로").then{
         $0.isEnabled = true
         $0.backgroundColor = .WATCHA_PINK
         $0.setTitleColor(.WATCHA_WHITE, for: .normal)
@@ -36,7 +36,6 @@ class WelcomeViewController: UIViewController {
         setUI()
         setLayout()
         welcomeLabel.text = "\(nickname ?? "익명의 사용자")님\n가입을 환영합니다!"
-        toMainButton.addTarget(self, action: #selector(toMainButtonDidTap), for: .touchUpInside)
     }
     
     func setUI() {
@@ -67,9 +66,5 @@ class WelcomeViewController: UIViewController {
         let vc = MainViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    @objc
-    func toMainButtonDidTap(){
-        pushToMainViewController()
     }
 }
