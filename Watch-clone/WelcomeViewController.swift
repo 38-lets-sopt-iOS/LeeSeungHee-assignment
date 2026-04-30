@@ -28,6 +28,7 @@ class WelcomeViewController: UIViewController {
         $0.isEnabled = true
         $0.backgroundColor = .WATCHA_PINK
         $0.setTitleColor(.WATCHA_WHITE, for: .normal)
+        $0.addTarget(self, action: #selector(GoMainDidTap), for: .touchUpInside)
     }
     
     
@@ -62,9 +63,13 @@ class WelcomeViewController: UIViewController {
         }
     }
     
-    func pushToMainViewController(){
-        let vc = MainViewController()
-        navigationController?.pushViewController(vc, animated: true)
+    func replaceRootViewController() {
+        let naviBar = NavigationBarController()
+        view.window?.rootViewController = naviBar
+        view.window?.makeKeyAndVisible()
     }
+    
+    @objc func GoMainDidTap() {
+        replaceRootViewController()
     }
 }
