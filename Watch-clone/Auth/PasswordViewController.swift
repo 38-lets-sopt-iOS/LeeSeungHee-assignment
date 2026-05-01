@@ -11,7 +11,7 @@ import SnapKit
 
 class PasswordViewController: UIViewController {
     
-//MARK: - Properties
+    //MARK: - Properties
     
     var email: String?
     var tossNickname: String?
@@ -51,20 +51,17 @@ class PasswordViewController: UIViewController {
     
     lazy var labelTouch = UITapGestureRecognizer(target: self, action: #selector(labelDidTouch))
     
-//MARK: - viewDidLoad()
+    //MARK: - viewDidLoad()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .WATCHA_BLACK
         
         emailLabel.text = "\(email ?? "")로 가입중"
         // 이런건 옵셔널바인딩아님 걘값잇을때만쓸거야 이거고 이 nil-coalescing (??) 은 nil이면 대체값넣어서 응무조건쓸거야이러시는
         
         setUI()
         setLayout()
-        pwTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-        joinButton.addTarget(self, action: #selector(joinDidTap), for: .touchUpInside)
-        
+        setAction()
     }
     
     
@@ -112,13 +109,16 @@ class PasswordViewController: UIViewController {
         }
     }
     
-
+    func setAction() {
+        pwTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        joinButton.addTarget(self, action: #selector(joinDidTap), for: .touchUpInside)
+    }
     
     
-//MARK: - func
+    //MARK: - func
     
     private func presentToNameViewController() {
-        let nameViewController = NameViewController()
+        let nameViewController = NicknameViewController()
         nameViewController.closerTypeProperty = { [weak self] data in
             guard let self else {return}
             setNickNameLabel.attributedText = NSAttributedString(string: "Nickname : \(data) ")
@@ -136,7 +136,7 @@ class PasswordViewController: UIViewController {
         
         let xIcon = ClearTextButton(pwTextField)
         
-       let eyeIcon = UIButton().then {
+        let eyeIcon = UIButton().then {
             $0.setImage(.eyeOff, for: .normal)
             $0.setImage(.eyeOn, for: .selected)
             $0.contentMode = .scaleAspectFit
@@ -189,20 +189,20 @@ class PasswordViewController: UIViewController {
         navigationController?.pushViewController(welcomeViewController, animated: true)
     }
     
-//MARK: - @objc
+    //MARK: - @objc
     
     @objc
     func labelDidTouch() {
         presentToNameViewController()
     }
     
-  /*
-    @objc
-    private func clearText() {
-        pwTextField.text = ""
-        updateRightView(pwTextField)
-    }
-   */
+    /*
+     @objc
+     private func clearText() {
+     pwTextField.text = ""
+     updateRightView(pwTextField)
+     }
+     */
     
     @objc
     private func textDidChange(_ textField: UITextField) {
@@ -223,6 +223,6 @@ class PasswordViewController: UIViewController {
         pushToWelcomeViewController()
     }
     
-//MARK: -endOfClass
+    //MARK: -endOfClass
 }
 

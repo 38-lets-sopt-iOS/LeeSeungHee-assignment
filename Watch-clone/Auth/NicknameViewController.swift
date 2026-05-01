@@ -1,5 +1,5 @@
 //
-//  NameController.swift
+//  NicknameController.swift
 //  Watch-clone
 //
 //  Created by 초긍정행운의포춘쿠키 on 4/28/26.
@@ -9,7 +9,7 @@ import Then
 import UIKit
 import SnapKit
 
-class NameViewController: UIViewController {
+class NicknameViewController: UIViewController {
     
     
     var closerTypeProperty: ((String)->Void)?
@@ -62,7 +62,7 @@ class NameViewController: UIViewController {
             $0.height.equalTo(56)
         }
     }
-//MARK: - @objc
+    //MARK: - @objc
     @objc
     func doneButtonDidTap(){
         self.dismiss(animated: true)
@@ -72,5 +72,5 @@ class NameViewController: UIViewController {
         }
     }
     
-//MARK: -endOfClass
+    //MARK: -endOfClass
 }

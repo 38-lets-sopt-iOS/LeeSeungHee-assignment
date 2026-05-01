@@ -11,6 +11,8 @@ import Then
 
 class WelcomeViewController: UIViewController {
     
+    //MARK: - Properties
+    
     var nickname: String?
     
     private let watchaLogo = UIImageView(image: .watcha).then{
@@ -31,7 +33,7 @@ class WelcomeViewController: UIViewController {
         $0.addTarget(self, action: #selector(GoMainDidTap), for: .touchUpInside)
     }
     
-    
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -45,7 +47,7 @@ class WelcomeViewController: UIViewController {
     }
     
     func setLayout(){
-    
+        
         watchaLogo.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(28)
             $0.top.equalToSuperview().offset(85)
@@ -63,6 +65,7 @@ class WelcomeViewController: UIViewController {
         }
     }
     
+    //MARK: - func
     func replaceRootViewController() {
         let naviBar = NavigationBarController()
         view.window?.rootViewController = naviBar
@@ -72,4 +75,5 @@ class WelcomeViewController: UIViewController {
     @objc func GoMainDidTap() {
         replaceRootViewController()
     }
+    //MARK: - endOFClass
 }
