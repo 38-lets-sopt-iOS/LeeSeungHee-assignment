@@ -13,8 +13,7 @@ import SnapKit
 final class NavigationBarController: UITabBarController {
     
     //MARK: - Properties
-    private let Navs: [UIImage?] = [.nav1, .nav2, .nav3, .nav4, .nav5]
-    
+    private let Navs: [UIImage] = [.nav1, .nav2, .nav3, .nav4, .nav5]
     
     private lazy var Buttons: [UIButton] = {
         
@@ -22,7 +21,7 @@ final class NavigationBarController: UITabBarController {
         for i in Navs.indices {
             let button = UIButton(type: .custom).then {
                 $0.tag = i
-                $0.setImage(Navs[i]?.withTintColor(.GRAY_500), for: .normal)
+                $0.setImage(Navs[i].withTintColor(.GRAY_500), for: .normal)
                 $0.setImage(Navs[i], for: .selected)
                 $0.imageView?.contentMode = .scaleAspectFit
                 $0.addTarget(self, action: #selector(ButtonDidTap), for: .touchUpInside)
@@ -95,8 +94,7 @@ final class NavigationBarController: UITabBarController {
         }
         
         Buttons.forEach { $0.snp.makeConstraints {
-            $0.width.height.equalTo(50)
-        }
+            $0.width.height.equalTo(50)}
         }
     }
     

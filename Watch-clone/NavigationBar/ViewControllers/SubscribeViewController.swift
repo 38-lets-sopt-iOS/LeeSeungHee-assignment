@@ -32,7 +32,7 @@ class SubscribeViewController : UIViewController {
     }
     
     lazy var topBar = UIView().then{
-        $0.addSubviews(line,stack)
+        $0.addSubviews(line,stack,subscribe)
     }
     
     lazy var stack =  UIStackView().then{
@@ -54,7 +54,11 @@ class SubscribeViewController : UIViewController {
     private let line = UIView().then {
         $0.backgroundColor = .GRAY_600
     }
-    
+    let subscribe = UILabel().then {
+        $0.text = "구독"
+        $0.font = .head2
+        $0.textColor = .WATCHA_WHITE
+    }
     private lazy var mainCollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: makeMainLayout()
@@ -124,8 +128,6 @@ class SubscribeViewController : UIViewController {
         view.addSubviews(topBar, scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(contentStackView)
-        
-        contentStackView.addArrangedSubview(makeScrollTitleView())
         contentStackView.addArrangedSubview(makeSectionView(title: nil, subtitle: nil, cap: nil, collectionView: mainCollectionView, height: 395))
         contentStackView.addArrangedSubview(makeSectionView(title: "방금 막 도착한 신상 콘텐츠", subtitle: "예능부터 드라마까지!",cap: nil, collectionView: newContentCollectionView, height: 191))
         contentStackView.addArrangedSubview(makeWatgorythmSectionView())
@@ -137,7 +139,12 @@ class SubscribeViewController : UIViewController {
         topBar.snp.makeConstraints {
             $0.top.equalToSuperview().inset(44)
             $0.leading.trailing.equalToSuperview().inset(1)
-            $0.height.equalTo(56)
+            $0.height.equalTo(69)
+        }
+        
+        subscribe.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(28)
+            $0.bottom.equalTo(line.snp.top).offset(-15)
         }
         line.snp.makeConstraints {
             $0.bottom.leading.trailing.equalToSuperview()
@@ -170,7 +177,6 @@ class SubscribeViewController : UIViewController {
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
-    //MARK: endOfClass
 }
 
 extension SubscribeViewController {
@@ -305,22 +311,6 @@ extension SubscribeViewController {
         }
         
         return sectionView
-    }
-
-    
-     private func makeScrollTitleView() -> UIView {
-        let titleView = UIView()
-    let titleLabel = UILabel().then {
-            $0.text = "구독"
-           $0.textColor = .WATCHA_WHITE
-            $0.font = .head1
-         }
-        titleView.addSubview(titleLabel)
-         titleLabel.snp.makeConstraints {
-           $0.top.bottom.equalToSuperview()
-             $0.leading.trailing.equalToSuperview().inset(24)
-       }
-        return titleView
     }
 }
 
