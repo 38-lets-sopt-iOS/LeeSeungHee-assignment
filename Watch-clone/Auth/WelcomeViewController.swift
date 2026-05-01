@@ -11,6 +11,8 @@ import Then
 
 class WelcomeViewController: UIViewController {
     
+    //MARK: - Properties
+    
     var nickname: String?
     
     private let watchaLogo = UIImageView(image: .watcha).then{
@@ -24,13 +26,14 @@ class WelcomeViewController: UIViewController {
         $0.textAlignment = .center
     }
     
-    private let toMainButton = BaseButton("메인으로").then{
+    private lazy var toMainButton = BaseButton("메인으로").then{
         $0.isEnabled = true
         $0.backgroundColor = .WATCHA_PINK
         $0.setTitleColor(.WATCHA_WHITE, for: .normal)
+        $0.addTarget(self, action: #selector(GoMainDidTap), for: .touchUpInside)
     }
     
-    
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -44,7 +47,7 @@ class WelcomeViewController: UIViewController {
     }
     
     func setLayout(){
-    
+        
         watchaLogo.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(28)
             $0.top.equalToSuperview().offset(85)
@@ -62,5 +65,15 @@ class WelcomeViewController: UIViewController {
         }
     }
     
+    //MARK: - func
+    func replaceRootViewController() {
+        let naviBar = NavigationBarController()
+        view.window?.rootViewController = naviBar
+        view.window?.makeKeyAndVisible()
+    }
     
+    @objc func GoMainDidTap() {
+        replaceRootViewController()
+    }
+    //MARK: - endOFClass
 }
