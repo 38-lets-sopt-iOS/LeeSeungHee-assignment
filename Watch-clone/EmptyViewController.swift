@@ -25,7 +25,7 @@ class EmptyViewController : UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-            setUI()
+        setUI()
         setLayout()
     }
     
