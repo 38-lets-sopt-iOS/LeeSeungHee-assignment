@@ -125,10 +125,11 @@ class SubscribeViewController : UIViewController {
         scrollView.addSubview(contentView)
         contentView.addSubview(contentStackView)
         
-        contentStackView.addArrangedSubview(makeSectionView(title: nil, subtitle: nil, collectionView: mainCollectionView, height: 395))
-        contentStackView.addArrangedSubview(makeSectionView(title: "방금 막 도착한 신상 콘텐츠", subtitle: "예능부터 드라마까지!", collectionView: newContentCollectionView, height: 191))
-        contentStackView.addArrangedSubview(makeSectionView(title: "왓괴즘", subtitle: "예능부터 드라마까지!", collectionView: watchaCollectionView, height: 153))
-        contentStackView.addArrangedSubview(makeSectionView(title: "공개 예정 콘텐츠", subtitle: nil, collectionView: openCollectionView, height: 153))
+        contentStackView.addArrangedSubview(makeScrollTitleView())
+        contentStackView.addArrangedSubview(makeSectionView(title: nil, subtitle: nil, cap: nil, collectionView: mainCollectionView, height: 395))
+        contentStackView.addArrangedSubview(makeSectionView(title: "방금 막 도착한 신상 콘텐츠", subtitle: "예능부터 드라마까지!",cap: nil, collectionView: newContentCollectionView, height: 191))
+        contentStackView.addArrangedSubview(makeWatgorythmSectionView())
+        contentStackView.addArrangedSubview(makeSectionView(title: "공개 예정 콘텐츠", subtitle: nil, cap: "더보기", collectionView: openCollectionView, height: 153))
     }
     
     func setLayout(){
@@ -157,7 +158,8 @@ class SubscribeViewController : UIViewController {
         }
         scrollView.snp.makeConstraints {
             $0.top.equalTo(topBar.snp.bottom)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(133)
+            $0.leading.trailing.equalToSuperview()
         }
         contentView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -199,7 +201,7 @@ extension SubscribeViewController {
         return layout
     }
     
-    private func makeSectionView(title: String?, subtitle: String?, collectionView: UICollectionView, height: CGFloat) -> UIView {
+    private func makeSectionView(title: String?, subtitle: String?, cap: String?, collectionView: UICollectionView, height: CGFloat) -> UIView {
         let sectionView = UIView().then {
             $0.backgroundColor = .WATCHA_BLACK
         }
@@ -207,16 +209,22 @@ extension SubscribeViewController {
         let titleLabel = UILabel().then {
             $0.text = title
             $0.textColor = .WATCHA_WHITE
-            $0.font = .systemFont(ofSize: 20, weight: .bold)
+            $0.font = .head3
         }
         
         let subtitleLabel = UILabel().then {
             $0.text = subtitle
-            $0.textColor = .GRAY_300
-            $0.font = .systemFont(ofSize: 16, weight: .semibold)
+            $0.textColor = .GRAY_100
+            $0.font = .subhead1
         }
         
-        sectionView.addSubviews(titleLabel, subtitleLabel, collectionView)
+        let capLabel = UILabel().then{
+            $0.text = cap
+            $0.textColor = .GRAY_100
+            $0.font = .cap1
+        }
+        
+        sectionView.addSubviews(titleLabel, subtitleLabel, capLabel, collectionView)
         
         if title == nil {
             titleLabel.isHidden = true
@@ -235,6 +243,11 @@ extension SubscribeViewController {
                 $0.top.equalTo(titleLabel.snp.bottom).offset(4)
                 $0.leading.trailing.equalToSuperview().inset(20)
             }
+            capLabel.snp.makeConstraints {
+                $0.trailing.equalToSuperview().inset(22)
+                $0.centerY.equalTo(titleLabel)
+                
+            }
             collectionView.snp.makeConstraints {
                 $0.top.equalTo(subtitleLabel.snp.bottom).offset(14)
                 $0.leading.trailing.equalToSuperview()
@@ -244,6 +257,70 @@ extension SubscribeViewController {
         }
         
         return sectionView
+    }
+    
+    private func makeWatgorythmSectionView() -> UIView {
+        let sectionView = UIView()
+        
+        let titleImageView = UIImageView().then {
+            $0.image = .watgorythm
+            $0.contentMode = .scaleAspectFit
+        }
+        
+        let subtitleLabel = UILabel().then {
+            $0.text = "예능부터 드라마까지!"
+            $0.textColor = .GRAY_100
+            $0.font = .subhead1
+        }
+        
+        let capLabel = UILabel().then {
+            $0.text = "더보기"
+            $0.textColor = .GRAY_100
+            $0.font = .cap1
+        }
+        
+        sectionView.addSubviews(titleImageView, subtitleLabel, capLabel, watchaCollectionView)
+        
+        titleImageView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().offset(20)
+            $0.width.equalTo(90)
+            $0.height.equalTo(28)
+        }
+        
+        subtitleLabel.snp.makeConstraints {
+            $0.top.equalTo(titleImageView.snp.bottom).offset(4)
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
+        
+        capLabel.snp.makeConstraints {
+            $0.bottom.equalTo(subtitleLabel.snp.bottom).offset(-11)
+            $0.trailing.equalToSuperview().inset(22)
+        }
+        watchaCollectionView.snp.makeConstraints {
+            $0.top.equalTo(subtitleLabel.snp.bottom).offset(14)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(153)
+            $0.bottom.equalToSuperview()
+        }
+        
+        return sectionView
+    }
+
+    
+     private func makeScrollTitleView() -> UIView {
+        let titleView = UIView()
+    let titleLabel = UILabel().then {
+            $0.text = "구독"
+           $0.textColor = .WATCHA_WHITE
+            $0.font = .head1
+         }
+        titleView.addSubview(titleLabel)
+         titleLabel.snp.makeConstraints {
+           $0.top.bottom.equalToSuperview()
+             $0.leading.trailing.equalToSuperview().inset(24)
+       }
+        return titleView
     }
 }
 
