@@ -8,8 +8,8 @@ struct Model1 {
 extension Model1 {
     static func dummy() -> [Model1] {
         return [
-            Model1(poster: .t1),
             Model1(poster: .b2),
+            Model1(poster: .t2),
             Model1(poster: .t3)
         ]
     }
