@@ -56,6 +56,7 @@ struct WatchaTextField<RightView: View>: View {
     let placeholder: String
     @Binding var text: String
     let isSecure: Bool
+    var textContentType: UITextContentType? = nil
     let rightView: RightView
 
     @FocusState private var isFocused: Bool
@@ -65,9 +66,11 @@ struct WatchaTextField<RightView: View>: View {
             if isSecure {
                 SecureField(placeholder, text: $text)
                     .focused($isFocused)
+                    .textContentType(textContentType)
             } else {
                 TextField(placeholder, text: $text)
                     .focused($isFocused)
+                    .textContentType(textContentType)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
             }
