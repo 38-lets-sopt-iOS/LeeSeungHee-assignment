@@ -20,6 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let rootViewController = WelcomeViewController()
         let navigationController = UINavigationController(rootViewController: rootViewController)
+        
+        navigationController.setNavigationBarHidden(true, animated: false)
+        // 뒤로가기 버튼 숨기기
     
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = navigationController

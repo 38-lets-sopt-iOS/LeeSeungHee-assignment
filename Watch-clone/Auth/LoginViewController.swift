@@ -12,7 +12,7 @@ import SnapKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-//MARK: - Properties
+    //MARK: - Properties
     
     private let titleLabel = UILabel().then{
         $0.text = "로그인/가입하려는\n이메일을 입력해주세요"
@@ -30,11 +30,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     let emailTextField = BaseTextField("email@address.com")
     
-    lazy var nextButton = BaseButton("다음").then{
-        $0.addTarget(self,action: #selector(loginButtonDidTap), for: .touchUpInside)
-    }
+    lazy var nextButton = BaseButton("다음")
     
-//MARK: - viewDidLoad()
+    //MARK: - viewDidLoad()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,13 +40,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         setUI()
         setLayout()
-        emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-        
+        setAction()
     }
     
     
     func setUI() {
-            view.backgroundColor = .WATCHA_BLACK
+        view.backgroundColor = .WATCHA_BLACK
         view.addSubviews(titleLabel,subLabel,nextButton,emailTextField)
     }
     
@@ -77,7 +74,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-//MARK: - func
+    func setAction(){
+        emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        nextButton.addTarget(self,action: #selector(loginButtonDidTap), for: .touchUpInside)
+    }
+    
+    //MARK: - func
     private func pushToPasswordViewController(){
         let passwordViewController = PasswordViewController()
         passwordViewController.email = emailTextField.text
@@ -128,7 +130,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             nextButton.setTitleColor(.GRAY_200, for: .normal)
         }
     }
-//MARK: - @objc
+    //MARK: - @objc
     
     @objc
     private func loginButtonDidTap() {
@@ -141,7 +143,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let isValid = (textField.text ?? "").isValidEmail()
         updateNextButtonState(isValid: isValid)
     }
-
-//MARK: -endOfClass
+    
+    //MARK: -endOfClass
 }
 
