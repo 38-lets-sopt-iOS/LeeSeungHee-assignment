@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct EmptyViewController: View {
+struct EmptyTabView: View {
     let title: String
 
     var body: some View {
         ZStack {
-            Color.watchaBlack
+            Color.WATCHA_BLACK
                 .ignoresSafeArea()
 
-            VStack(spacing: 20) {
+            VStack(spacing: 50) {
                 Text(title)
-                    .font(.system(size: 24, weight: .semibold))
-                    .foregroundStyle(Color.watchaWhite)
+                    .font(.head2)
+                    .foregroundStyle(.WATCHA_WHITE)
 
                 Image("mandoo")
                     .resizable()
@@ -26,13 +26,13 @@ struct EmptyViewController: View {
                     .frame(width: 100, height: 100)
 
                 Text(" . . 텅 ~")
-                    .font(.system(size: 30, weight: .bold))
-                    .foregroundStyle(Color.watchaGreen)
+                    .font(.head1)
+                    .foregroundStyle(.WATCHA_GREEN)
             }
         }
     }
 }
 
 #Preview {
-    EmptyViewController(title: "개별 구매")
+    EmptyTabView(title: "개별 구매")
 }

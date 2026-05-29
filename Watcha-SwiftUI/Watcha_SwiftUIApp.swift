@@ -11,7 +11,9 @@ import SwiftUI
 struct Watcha_SwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                WelcomeView(nickname: "승희")
+            }
         }
     }
 }

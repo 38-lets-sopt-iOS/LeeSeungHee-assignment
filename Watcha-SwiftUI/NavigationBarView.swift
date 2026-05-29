@@ -7,38 +7,36 @@
 
 import SwiftUI
 
-struct NavigationBarController: View {
+struct NavigationBarView: View {
+    
     @State private var selectedIndex = 0
 
     private let selectedImages = ["nav1", "nav2", "nav3", "nav4", "nav5"]
-    private let unselectedImages = ["nav1", "usnav2", "usnav3", "usnav4", "usnav5"]
 
     var body: some View {
+        
         ZStack(alignment: .bottom) {
-            currentView
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(.bottom, 94)
+            selectedView
+              .padding(.bottom, 99)
 
             customNavigationBar
         }
-        .background(Color.watchaBlack)
-        .ignoresSafeArea(edges: .bottom)
-        .navigationBarBackButtonHidden()
+        .background(.WATCHA_BLACK)
         .toolbar(.hidden, for: .navigationBar)
     }
 
-    private var currentView: some View {
+    private var selectedView: some View {
         Group {
             if selectedIndex == 0 {
-                SubscribeViewController()
+                SubscribeTabView()
             } else if selectedIndex == 1 {
-                EmptyViewController(title: "개별 구매")
+                EmptyTabView(title: "개별 구매")
             } else if selectedIndex == 2 {
-                EmptyViewController(title: "웹툰")
+                EmptyTabView(title: "웹툰")
             } else if selectedIndex == 3 {
-                EmptyViewController(title: "찾기")
+                EmptyTabView(title: "찾기")
             } else {
-                EmptyViewController(title: "보관함")
+                EmptyTabView(title: "보관함")
             }
         }
     }
@@ -46,17 +44,23 @@ struct NavigationBarController: View {
     private var customNavigationBar: some View {
         VStack(spacing: 0) {
             Rectangle()
-                .fill(Color.gray600)
-                .frame(height: 1)
+                .fill(.GRAY_600)
+                .frame(height: 2)
 
             HStack {
                 ForEach(0..<selectedImages.count, id: \.self) { index in
                     Button {
                         selectedIndex = index
                     } label: {
-                        Image(selectedIndex == index ? selectedImages[index] : unselectedImages[index])
+                        Image(selectedImages[index])
+                            .renderingMode(.template)
                             .resizable()
                             .scaledToFit()
+                            .foregroundStyle(
+                                selectedIndex == index
+                                ? .WATCHA_WHITE
+                                : .GRAY_500
+                            )
                             .frame(width: 50, height: 50)
                     }
                     .frame(width: 50, height: 56)
@@ -71,11 +75,11 @@ struct NavigationBarController: View {
 
             Spacer()
         }
-        .frame(height: 128)
-        .background(Color.watchaBlack)
+        .frame(height: 99)
+        .background(.WATCHA_BLACK)
     }
 }
 
 #Preview {
-    NavigationBarController()
+    NavigationBarView()
 }
