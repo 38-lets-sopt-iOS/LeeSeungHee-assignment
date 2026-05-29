@@ -73,17 +73,19 @@ struct LoginView: View {
 
     private var emailRightView: some View {
         HStack(spacing: 4) {
-            Button {
-                email = ""
-            } label: {
-                Image("x")
+            if !email.isEmpty {
+                Button {
+                    email = ""
+                } label: {
+                    Image("x")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                }
+
+                Image(isValidEmail ? "check-on" : "check-off")
                     .resizable()
                     .frame(width: 24, height: 24)
             }
-
-            Image(isValidEmail ? "check-on" : "check-off")
-                .resizable()
-                .frame(width: 24, height: 24)
         }
     }
 }
@@ -180,20 +182,22 @@ struct PasswordView: View {
 
     private var passwordRightView: some View {
         HStack(spacing: 4) {
-            Button {
-                password = ""
-            } label: {
-                Image("x")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            }
+            if !password.isEmpty {
+                Button {
+                    password = ""
+                } label: {
+                    Image("x")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                }
 
-            Button {
-                isPasswordHidden.toggle()
-            } label: {
-                Image(isPasswordHidden ? "eye-off" : "eye-on")
-                    .resizable()
-                    .frame(width: 24, height: 24)
+                Button {
+                    isPasswordHidden.toggle()
+                } label: {
+                    Image(isPasswordHidden ? "eye-off" : "eye-on")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                }
             }
         }
     }
