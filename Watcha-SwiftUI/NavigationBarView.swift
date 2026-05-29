@@ -26,6 +26,7 @@ struct NavigationBarView: View {
     }
 
     private var selectedView: some View {
+        
         Group {
             if selectedIndex == 0 {
                 SubscribeTabView()
@@ -42,6 +43,7 @@ struct NavigationBarView: View {
     }
 
     private var customNavigationBar: some View {
+        
         VStack(spacing: 0) {
             Rectangle()
                 .fill(.GRAY_600)

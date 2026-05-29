@@ -18,6 +18,7 @@ struct WelcomeView: View {
     }
 
     var body: some View {
+        
         ZStack {
             Color.WATCHA_BLACK
                 .ignoresSafeArea()
