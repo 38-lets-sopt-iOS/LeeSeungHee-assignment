@@ -244,6 +244,7 @@ struct NicknameView: View {
 
 struct WelcomeView: View {
     let nickname: String?
+    @State private var isShowingMainView = false
 
     private var displayName: String {
         if let nickname, !nickname.isEmpty {
@@ -274,10 +275,15 @@ struct WelcomeView: View {
 
                 Spacer()
 
-                WatchaButton(title: "메인으로", isEnabled: true) {}
+                WatchaButton(title: "메인으로", isEnabled: true) {
+                    isShowingMainView = true
+                }
                     .padding(.horizontal, 22)
                     .padding(.bottom, 47)
             }
+        }
+        .navigationDestination(isPresented: $isShowingMainView) {
+            NavigationBarController()
         }
     }
 }
