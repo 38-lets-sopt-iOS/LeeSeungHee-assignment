@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct mainStack : View{
     
     var body: some View {
@@ -78,7 +77,6 @@ struct posterStack : View {
         }
     }
 }
-
 
 struct partyStack : View {
     

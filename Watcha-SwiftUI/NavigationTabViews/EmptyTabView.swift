@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct EmptyTabView: View {
+    
     let title: String
 
     var body: some View {
+        
         ZStack {
             Color.WATCHA_BLACK
                 .ignoresSafeArea()

@@ -113,7 +113,8 @@ struct SubscribeTabView: View {
                         }
                         .padding(.leading, 24)
                         
-                        posterStack()                            .padding(.leading,18)
+                        posterStack()
+                            .padding(.leading,18)
                             .padding(.bottom,30)
                         
                         HStack{
@@ -130,7 +131,8 @@ struct SubscribeTabView: View {
                         }
                         .padding(.leading, 22)
                         
-                        partyStack()                            .padding(.leading,17)
+                        partyStack()
+                            .padding(.leading,17)
                         
                     }
                 }
@@ -138,7 +140,6 @@ struct SubscribeTabView: View {
         }
     }
 }
-
 
 #Preview {
     SubscribeTabView()
