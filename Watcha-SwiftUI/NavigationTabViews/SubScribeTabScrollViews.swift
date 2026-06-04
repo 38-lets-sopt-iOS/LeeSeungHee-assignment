@@ -22,12 +22,11 @@ struct mainStack : View{
                             .resizable()
                             .frame(width: 273, height: 399)
                             .cornerRadius(12)
-                            .id(poster.id)
                     }
                 }
             }
             .onAppear {
-                startPoint.scrollTo(1, anchor: .center)
+                startPoint.scrollTo(PosterModel.mPosters[1].id, anchor: .center)
             }
         }
     }
@@ -48,12 +47,11 @@ struct verticalStack : View{
                             .resizable()
                             .frame(width: 339, height: 191)
                             .cornerRadius(12)
-                            .id(poster.id)
                     }
                 }
             }
             .onAppear {
-                startPoint.scrollTo(6, anchor: .center)
+                startPoint.scrollTo(PosterModel.vPosters[1].id, anchor: .center)
             }
         }
     }
@@ -112,7 +110,6 @@ struct partyStack : View {
                             .padding(.leading,8)
                         }
                     }
-            
                 }
             }
         }
