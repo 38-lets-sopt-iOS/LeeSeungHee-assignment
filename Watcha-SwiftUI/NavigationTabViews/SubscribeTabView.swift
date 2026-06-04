@@ -23,17 +23,17 @@ struct SubscribeTabView: View {
                             
                             Spacer()
                             
-                            Image("Video")
+                            Image(.video)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
                             
-                            Image("Notification")
+                            Image(.notification)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
                             
-                            Image("Profile")
+                            Image(.profile)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
@@ -133,7 +133,6 @@ struct SubscribeTabView: View {
                         
                         partyStack()
                             .padding(.leading,17)
-                        
                     }
                 }
             }
