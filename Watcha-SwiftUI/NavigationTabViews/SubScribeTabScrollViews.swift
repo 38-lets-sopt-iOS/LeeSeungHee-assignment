@@ -86,7 +86,7 @@ struct partyStack : View {
             
             HStack(spacing:12) {
                 
-                ForEach(PosterModel.pPosters) { poster in
+                ForEach(PartyModel.partyPosters) { poster in
                     ZStack (alignment: .top) {
                         Rectangle()
                             .frame(width: 196,height:185)
@@ -96,14 +96,15 @@ struct partyStack : View {
                             Image(poster.posterImage)
                                 .resizable()
                                 .frame(width: 196, height: 139)
+                                .padding(.bottom,3)
                             
                             HStack{
-                                VStack(alignment: .leading) { Text("오늘 22:02에 시작")
+                                VStack(alignment: .leading) { Text(poster.posterTime)
                                     .font(.body1)
                                     .foregroundStyle(.WATCHA_PINK)
-                                    .padding(.bottom,6)
+                                    .padding(.bottom,3)
                                     
-                                Text("#왕가사는남자")
+                                    Text(poster.posterTag)
                                     .font(.subhead3)
                                 .foregroundStyle(.WATCHA_WHITE)}
                                 Spacer()
