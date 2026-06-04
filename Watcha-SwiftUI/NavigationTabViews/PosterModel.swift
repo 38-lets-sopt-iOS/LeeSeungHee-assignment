@@ -34,9 +34,20 @@ extension PosterModel {
         PosterModel(id: 11, posterImage: .t3),
         PosterModel(id: 12, posterImage: .t1)
     ]
+}
+
+
+struct PartyModel: Identifiable {
+    let id: UUID
+    let posterImage : ImageResource
+    let posterTag: String
+    let posterTime: String
     
-    static let pPosters: [PosterModel] = [
-        PosterModel(id: 13, posterImage: .p1),
-        PosterModel(id: 14, posterImage: .p2),
+    static let partyPosters: [PartyModel] = [
+        PartyModel(id: UUID(), posterImage: .p1, posterTag: "# 왕가남", posterTime: "오늘 21:30에 시작"),
+        PartyModel(id: UUID(), posterImage: .p2, posterTag: "# 파묘", posterTime: "오늘 22:45에 시작"),
     ]
 }
+
+
+
